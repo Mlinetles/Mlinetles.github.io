@@ -7,10 +7,13 @@
     <title>Mlinetles</title>
 </head>
 <body>
-    <div>能开 挺好</div>
+    <div class="nanoid">点击生成nanoid</div><button class="nanoid-button">生成</button>
 </body>
 <script type="module">
     import { nanoid } from "/nanoid.js";
-    console.log(nanoid());
+    const oNanoidBtn = document.querySelector('.nanoid-button');
+    oNanoidBtn.onclick = () => {
+        alert(nanoid());
+        }
 </script>
 </html>
