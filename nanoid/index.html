@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mlinetles</title>
+</head>
+<body>
+    <span>nanoid生成器</span><button class="nanoid-button">生成</button>
+    <div class="nanoid" style="text-decoration: underline;"></div>
+</body>
+<script src="./md5.min.js"></script>
+<script type="module">
+    import { nanoid } from "/nanoid.js";
+
+    const oNanoid = document.querySelector('.nanoid');
+    const oNanoidBtn = document.querySelector('.nanoid-button');
+
+    oNanoidBtn.onclick = () => {
+        oNanoid.innerText = nanoid();
+        }
+</script>
+</html>
