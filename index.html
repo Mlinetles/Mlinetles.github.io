@@ -186,10 +186,10 @@
         })">加密文本</button>
         <button class="buttons" onclick="EncryptFile()">加密HTML</button>
         <button class="buttons" onclick="EncryptFile(true)">加密PDF</button>
-        <button class="buttons" onclick="(function() {
-            const key = document.querySelector('#key').value
+        <button class="buttons" onclick="(function () {
+            let key = document.querySelector('#key').value
             
-            const iv = document.querySelector('#iv').value
+            let iv = document.querySelector('#iv').value
 
             if (key.length !== 32) {
                 alert(`密钥的字节数必须为32！当前为${typeof key != 'undefined' ? key.length : 0}`)
@@ -222,17 +222,19 @@
                             type: 'application/force-download;charset=UTF-8'
                         })
 
-                        const download = document.createElement('a')
+                        if (file.size !== 0) {
+                            const download = document.createElement('a')
 
-                        const url = window.URL.createObjectURL(file)
+                            const url = window.URL.createObjectURL(file)
 
-                        download.href = url
+                            download.href = url
 
-                        download.download = input.files[i].name.replace('.mdf', '.pdf')
+                            download.download = input.files[i].name.replace('.mdf', '.pdf')
 
-                        download.click()
+                            download.click()
 
-                        window.URL.revokeObjectURL(url)
+                            window.URL.revokeObjectURL(url)
+                        }
                     }
                 }
             }
