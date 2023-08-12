@@ -186,6 +186,53 @@
         })">加密文本</button>
         <button class="buttons" onclick="EncryptFile()">加密HTML</button>
         <button class="buttons" onclick="EncryptFile(true)">加密PDF</button>
+        <button class="buttons" onclick="
+            if (key.length !== 32) {
+                alert(`密钥的字节数必须为32！当前为${typeof key != 'undefined' ? key.length : 0}`)
+
+                return ''
+            }
+
+            if (iv.length !== 16) {
+                alert(`向量的字节数必须为16！当前为${typeof iv != 'undefined' ? iv.length : 0}`)
+
+                return ''
+            }
+
+            const input = document.createElement('input')
+
+            input.type = 'file'
+
+            input.accept = '.mdf'
+
+            input.onchange = async e => {
+                if (input.files.length !== 0) {
+                    for (let i = 0, len = input.files.length; i < len; i++) {
+                        key = aesjs.utils.utf8.toBytes(key)
+
+                        iv = aesjs.utils.utf8.toBytes(iv)
+
+                        const content = new Uint8Array(await input.files[i].arrayBuffer())
+
+                        const file = new Blob([new aesjs.ModeOfOperation.ofb(key, iv).decrypt(content)], {
+                            type: 'application/force-download;charset=UTF-8'
+                        })
+
+                        const download = document.createElement('a')
+
+                        const url = window.URL.createObjectURL(file)
+
+                        download.href = url
+
+                        download.download = input.files[i].name.replace('.mdf', '.pdf')
+
+                        download.click()
+
+                        window.URL.revokeObjectURL(url)
+                    }
+                }
+            }
+        ">解密本地PDF</button>
         <button class="buttons" id="newKey">生成新密钥</button>
         <button class="buttons" id="newIv">生成新向量</button>
         <button class="buttons" onclick="(function () {
