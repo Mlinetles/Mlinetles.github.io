@@ -186,7 +186,11 @@
         })">加密文本</button>
         <button class="buttons" onclick="EncryptFile()">加密HTML</button>
         <button class="buttons" onclick="EncryptFile(true)">加密PDF</button>
-        <button class="buttons" onclick="
+        <button class="buttons" onclick="(function() {
+            const key = document.querySelector('#key').value
+            
+            const iv = document.querySelector('#iv').value
+
             if (key.length !== 32) {
                 alert(`密钥的字节数必须为32！当前为${typeof key != 'undefined' ? key.length : 0}`)
 
@@ -232,7 +236,7 @@
                     }
                 }
             }
-        ">解密本地PDF</button>
+        })()">解密本地PDF</button>
         <button class="buttons" id="newKey">生成新密钥</button>
         <button class="buttons" id="newIv">生成新向量</button>
         <button class="buttons" onclick="(function () {
