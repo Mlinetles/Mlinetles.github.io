@@ -280,10 +280,13 @@
 
             document.querySelector('#key').value,
 
-            document.querySelector('#iv').value)
+            document.querySelector('#iv').value,
+
+            !document.querySelector('#input').value.endsWith('.mdf'),
+            
+            document.querySelector('#input').value.endsWith('.mdf'))
         .then(res => {
-            if (typeof res === 'string')
-            {
+            if (typeof res === 'string') {
                 if (!res.includes('</html>'))
                     alert('解析失败！请检查源文件是否为合法的MTML、密钥及向量！')
 
@@ -306,6 +309,26 @@
 
                     window.URL.revokeObjectURL(url)
                 }
+            }
+
+            else if (typeof res === 'object') {
+                const text = new Blob([res], {
+                    type: 'application/force-download;charset=UTF-8'
+                })
+
+                const download = document.createElement('a')
+                    
+                const url = window.URL.createObjectURL(text)
+
+                download.href = url
+
+                download.download = document.querySelector('#input').value
+                    .substr(document.querySelector('#input').value.lastIndexOf('/') + 1)
+                    .replace('.mdf', '.pdf')
+
+                download.click()
+
+                window.URL.revokeObjectURL(url)
             }
         })">下载读取文件</button>
         <!-- 从这里开始往下的每一个onclick事件都采用(function(){})()这种逆天写法的原因是为了限制变量声明作用域 -->
