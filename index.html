@@ -399,15 +399,17 @@
 
             const level = prompt('请输入等级：')
 
-            key[level] = document.querySelector('#key').value
+            if (level !== null) {
+                key[level] = document.querySelector('#key').value
 
-            iv[level] = document.querySelector('#iv').value
+                iv[level] = document.querySelector('#iv').value
 
-            localStorage.setItem('key', JSON.stringify(key))
-            
-            localStorage.setItem('iv', JSON.stringify(iv))
+                localStorage.setItem('key', JSON.stringify(key))
+                
+                localStorage.setItem('iv', JSON.stringify(iv))
 
-            alert('保存成功！')
+                alert('保存成功！')
+            }
         })()">保存自定义等级</button>
         <button class="buttons" onclick="(function () {
             const key = JSON.parse(localStorage.getItem('key'))
@@ -484,17 +486,19 @@
 
             const level = prompt('请输入等级：')
 
-            if (typeof key[level] === 'string')
-                delete key[level]
+            if (level !== null) {
+                if (typeof key[level] === 'string')
+                    delete key[level]
 
-            if (typeof iv[level] === 'string')
-                delete iv[level]
+                if (typeof iv[level] === 'string')
+                    delete iv[level]
 
-            localStorage.setItem('key', JSON.stringify(key))
-            
-            localStorage.setItem('iv', JSON.stringify(iv))
+                localStorage.setItem('key', JSON.stringify(key))
+                
+                localStorage.setItem('iv', JSON.stringify(iv))
 
-            alert('清除成功！')
+                alert('清除成功！')
+            }
         })()">清除自定义通行等级</button>
         <button class="buttons" onclick="(function () {
             const keys = JSON.parse(localStorage.getItem('key'))
