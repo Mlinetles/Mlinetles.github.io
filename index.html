@@ -650,7 +650,11 @@
 
         var default_ = true
 
-        var modes = {}
+        var modes = {
+            key: document.querySelector('#key').value,
+
+            iv: document.querySelector('#iv').value
+        }
 
         const array = params.split('&')
 
@@ -806,12 +810,6 @@
 
                             break
                         }
-
-                    document.querySelector('#key').value = modes.key === undefined ? document.querySelector('#key').value
-                        : modes.key
-
-                    document.querySelector('#iv').value = modes.iv === undefined ? document.querySelector('#iv').value
-                        : modes.iv
 
                     break
             }
